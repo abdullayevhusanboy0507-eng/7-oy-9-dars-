@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+<a href="{% url 'home' %}"><h1>Hello World</h1></a>
+    <hr />
+    <h3>Full Name: {{ student.name }}</h3>
+    <h4>Year: {{ student.year }}</h4>
+    <h3>Phone Number: {{ student.phone_number }}</h3>
+    <h4>Course: {{ student.coursies }}</h4>
+    <h4>Image: <img src="{{ student.image.url }}" width="200" /></h4>
+    <hr />
+  
+</body>
+</html>

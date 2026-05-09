@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Uy ishi</title>
+  </head>
+  <body>
+    <a href="{% url 'home' %}"><h1>Hello World</h1></a>
+
+{% if coursies %}
+    <h2>Course</h2>
+
+    <hr>
+
+    <h3>Course: {{ coursies.name}}</h3>
+    <h4>Price: {{ coursies.price }}</h4>
+
+    <hr>
+{% endif %}
+
+<br>
+<br>
+<br>
+<br>
+
+    {% if students %}
+      <h2>All Students</h2>
+      {% for i in students %}
+        <hr>
+        <a href="{% url 'student_detail' i.pk %}"><h3>Full Name: {{ i.name }}</h3></a>
+        <h4>Year: {{ i.year}} </h4>
+        <h3>Phone Number: {{ i.phone_number }}</h3>
+        <h4>Course: {{ i.coursies }}</h4>
+        <h4>Image:<a href="{% url 'student_detail' i.pk %}"><img src="{{ i.image.url}}" width="200"></a></h4>
+        <hr>
+      {% endfor %}
+    {% endif %}
+
+  </body>
+</html>
