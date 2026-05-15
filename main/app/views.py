@@ -74,3 +74,20 @@ def add_student(request: HttpRequest):
         return render(request, 'app/add_student.html', context)
     else:
         return redirect('home')
+    
+
+@login_required(login_url='home')
+def update_student(request: HttpRequest,pk):
+    student = get_object_or_404(Student, pk =pk)
+    if request.method == 'POST':
+        form = StudentForm(data=request.POST, files=request.FILES, instance=student)
+        if form.is_valid():
+            form.save()
+            return redirect('student_detail',student.id)
+    else:
+        form = StudentForm(instance=student)
+    context = {
+        'form':form,
+        'student':student
+    }
+    return render(request, 'app/update_student.html', context)
