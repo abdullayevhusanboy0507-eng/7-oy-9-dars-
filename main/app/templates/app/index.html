@@ -7,6 +7,18 @@
     <title>Uy ishi</title>
   </head>
   <body>
+
+<div>
+    {% if not request.user.is_authenticated %}
+    <a href="{% url 'register' %}" >register</a>
+    <a href="{% url 'login' %}" >log in </a>
+    {% else %}
+    <a href="{% url 'loguot' %}" >log out </a>
+    {% endif %}
+</div>
+
+
+
     <a href="{% url 'home' %}"><h1>Hello World</h1></a>
     <a href="{% url 'add_course' %}"><h4>Add Course</h4></a>
     <a href="{% url 'add_student' %}"><h4>Add Student</h4></a>
