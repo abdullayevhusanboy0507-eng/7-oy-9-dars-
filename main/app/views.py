@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 from django.http import HttpRequest
 
 from .models import Course, Student
@@ -16,7 +16,8 @@ def views_all(request: HttpRequest):
     
     return render(request, 'app/index.html', context)
 
-
+@login_required(login_url='login')
+@permission_required('app.view_course', raise_exception=True)
 def course_by(request, pk):
     coursies = get_object_or_404(Course, id=pk)
     students = Student.objects.filter(coursies=coursies)
@@ -28,7 +29,8 @@ def course_by(request, pk):
 
     return render(request, "app/index.html", context)
 
-
+@login_required(login_url='login')
+@permission_required('app.view_student', raise_exception=True)
 def student_detail(request, pk):
     students = Student.objects.get(id=pk)
     
@@ -39,7 +41,8 @@ def student_detail(request, pk):
     return render(request, "app/detail.html", context)
 
 
-@login_required(login_url='home')
+@login_required(login_url='login')
+@permission_required('app.add_course', raise_exception=True)
 def add_course(request: HttpRequest):
     if request.user.is_staff:
         if request.method == 'POST':
@@ -57,7 +60,8 @@ def add_course(request: HttpRequest):
         return redirect('home')
     
 
-@login_required(login_url='home')
+@login_required(login_url='login')
+@permission_required('app.add_student', raise_exception=True)
 def add_student(request: HttpRequest):
     if request.user.is_staff:
         if request.method == 'POST':
@@ -76,7 +80,8 @@ def add_student(request: HttpRequest):
         return redirect('home')
     
 
-@login_required(login_url='home')
+@login_required(login_url='login')
+@permission_required('app.change_student', raise_exception=True)
 def update_student(request: HttpRequest,pk):
     student = get_object_or_404(Student, pk =pk)
     if request.method == 'POST':

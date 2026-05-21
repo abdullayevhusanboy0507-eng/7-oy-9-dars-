@@ -20,9 +20,16 @@
 
 
     <a href="{% url 'home' %}"><h1>Hello World</h1></a>
-    <a href="{% url 'add_course' %}"><h4>Add Course</h4></a>
-    <a href="{% url 'add_student' %}"><h4>Add Student</h4></a>
 
+{% if perms.app.add_course %}
+    <a href="{% url 'add_course' %}"><h4>Add Course</h4></a>
+{% endif %}
+
+{% if perms.app.add_student %}
+    <a href="{% url 'add_student' %}"><h4>Add Student</h4></a>
+{% endif %}
+
+{% if perms.app.view_course %}
     {% if coursies %}
         <h2>Course</h2>
         <hr>
@@ -30,9 +37,9 @@
         <h4>Price: {{ coursies.price }}</h4>
         <hr>
     {% endif %}
-
+{% endif %}
     <br><br><br><br>
-
+{% if perms.app.view_student %}
     {% if students %}
       <h2>All Students</h2>
 
@@ -61,6 +68,6 @@
         <hr>
       {% endfor %}
     {% endif %}
-
+{% endif %}
   </body>
 </html>
